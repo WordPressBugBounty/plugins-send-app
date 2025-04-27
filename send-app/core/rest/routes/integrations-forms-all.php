@@ -53,7 +53,7 @@ class Integrations_Forms_All extends Integrations_Route_Base {
 			return $this->respond_error_json( new \WP_Error(
 				$t->getCode(),
 				$t->getMessage(),
-				[ 'status' => 500 ]
+				[ 'status' => $t->getCode() ]
 			) );
 		}
 

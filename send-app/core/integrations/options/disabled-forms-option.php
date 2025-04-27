@@ -16,9 +16,6 @@ class Disabled_Forms_Option {
 	}
 
 	public static function add( string $form_id, string $integration ): void {
-		$id_parts = explode( '-', $form_id );
-		$form_id = $id_parts[1] ?? $form_id;
-
 		$disabled_forms = self::get_all( $integration );
 
 		if ( ! in_array( $form_id, $disabled_forms, true ) ) {

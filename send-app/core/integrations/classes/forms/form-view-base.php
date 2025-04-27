@@ -72,7 +72,6 @@ abstract class Form_View_Base extends Integration_Base {
 	abstract protected function get_js_object_name(): string;
 
 	abstract protected function get_form_selectors(): array;
-
 	abstract protected function get_script_relative_path(): string;
 
 	abstract protected function get_init_hook_name(): string;

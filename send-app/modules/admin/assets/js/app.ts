@@ -152,7 +152,7 @@ const App = (function () {
 					case 'activate-form-tracking':
 						await this.streamData(
 							[
-								`integrations/${data.sourceNameId}/forms/${data.formId}/status`,
+								`integrations/${data.sourceNameId}/forms/${data.formId}`,
 								'*',
 							],
 							'POST',

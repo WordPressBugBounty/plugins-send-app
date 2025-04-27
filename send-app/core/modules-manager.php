@@ -46,7 +46,7 @@ final class Modules_Manager {
 	private function get_module_list(): array {
 		return [
 			'Elementor',
-			'WpForms',
+			'Wp_Forms',
 			'Woocommerce',
 			'Admin',
 			'CF7',

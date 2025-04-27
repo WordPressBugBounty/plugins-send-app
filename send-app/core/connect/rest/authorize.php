@@ -56,6 +56,12 @@ class Authorize extends Connect_Route_Base {
 
 			$authorize_url = Utils::get_authorize_url( $client_id );
 
+			/**
+			 * Filter the authorize URL.
+			 * @param string $authorize_url The authorize URL.
+			 */
+			$authorize_url = apply_filters( 'send_app/connect/authorize_url', $authorize_url );
+
 			return $this->respond_success_json( $authorize_url );
 		} catch ( \Throwable $t ) {
 			return $this->respond_error_json( [

@@ -70,7 +70,19 @@ class Forms extends Forms_Component_Base {
 		// will return a nested array, top level is by post-id and for each post - the related forms
 		$form_instances = Forms_Data_Helper::get_form_instances_by_form_id( $form_id );
 
+		if ( empty( $form_instances ) ) {
+			throw new \Exception( 'Form not found', 404 );
+		}
+
 		$form_info = [];
+
+		$enable_tracking = $request->get_param( 'trackingEnabled' );
+
+		if ( $enable_tracking ) {
+			Disabled_Forms_Option::remove( $form_id, $this->get_name() );
+		} else {
+			Disabled_Forms_Option::add( $form_id, $this->get_name() );
+		}
 
 		foreach ( $form_instances as $post_id => $form ) {
 			// TODO: do we need to return multiple instances of the same form but in different pages?
@@ -82,14 +94,6 @@ class Forms extends Forms_Component_Base {
 
 		if ( empty( $form_info ) ) {
 			throw new \Exception( 'Form not found', 404 );
-		}
-
-		$enable_tracking = $request->get_param( 'trackingEnabled' );
-
-		if ( $enable_tracking ) {
-			Disabled_Forms_Option::remove( $form_id, Module::get_name() );
-		} else {
-			Disabled_Forms_Option::add( $form_id, Module::get_name() );
 		}
 
 		return $form_info;
@@ -107,7 +111,7 @@ class Forms extends Forms_Component_Base {
 		$form_id = $form['id'];
 
 		if ( is_null( $disabled_forms ) ) {
-			$disabled_forms = Disabled_Forms_Option::get_all( Module::get_name() );
+			$disabled_forms = Disabled_Forms_Option::get_all( $this->get_name() );
 		}
 
 		return [
@@ -147,7 +151,7 @@ class Forms extends Forms_Component_Base {
 	}
 
 	public function get_disabled_forms(): array {
-		return Disabled_Forms_Option::get_all( Module::get_name() );
+		return Disabled_Forms_Option::get_all( $this->get_name() );
 	}
 
 	public function is_disabled_form( string $form_id ): bool {

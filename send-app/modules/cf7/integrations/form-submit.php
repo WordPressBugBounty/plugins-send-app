@@ -11,11 +11,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class Form_Submit extends Form_Submit_Base {
 
-	protected function get_submit_hook(): array {
-		return [
-			'name' => 'wpcf7_submit',
-			'argc' => 2,
-		];
+	protected function get_submit_hook(): string {
+		return 'wpcf7_submit';
 	}
 
 	public function get_integration_name(): string {

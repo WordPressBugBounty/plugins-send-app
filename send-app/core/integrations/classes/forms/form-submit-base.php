@@ -12,7 +12,7 @@ abstract class Form_Submit_Base extends Integration_Base {
 
 	const EVENT = 'submitted';
 
-	abstract protected function get_submit_hook(): array;
+	abstract protected function get_submit_hook(): string;
 
 	abstract public function get_integration_name(): string;
 
@@ -56,10 +56,14 @@ abstract class Form_Submit_Base extends Integration_Base {
 		return true;
 	}
 
-	public function register_hooks(): void {
+	protected function register_submit_hook() {
 		$submit_hook = $this->get_submit_hook();
+		add_action( $submit_hook, [ $this, 'on_form_submit' ], 100000, 2 );
+	}
+
+	public function register_hooks(): void {
+		$this->register_submit_hook();
 		$async_submit_hook = $this->get_async_submit_hook();
-		add_action( $submit_hook['name'], [ $this, 'on_form_submit' ], 100000, $submit_hook['argc'] );
 		add_action( $async_submit_hook, [ $this, 'async_submit' ], 10, 1 );
 	}
 }

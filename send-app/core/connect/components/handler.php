@@ -15,6 +15,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 class Handler {
+	const PLG_TRANSIENT_KEY = 'elementor_send_app_campaign';
+
 	private function should_handle_auth_code(): bool {
 		global $plugin_page;
 
@@ -79,7 +81,29 @@ class Handler {
 		exit;
 	}
 
+	public function maybe_add_plg_to_authorize_url( $authorize_url ): string {
+		$utm_params = [];
+
+		$campaign = get_transient( self::PLG_TRANSIENT_KEY );
+		if ( empty( $campaign ) ) {
+			return $authorize_url;
+		}
+
+		foreach ( [ 'source', 'medium', 'campaign' ] as $key ) {
+			if ( ! empty( $campaign[ $key ] ) ) {
+				$utm_params[ 'utm_' . $key ] = $campaign[ $key ];
+			}
+		}
+
+		if ( ! empty( $utm_params ) ) {
+			$authorize_url = add_query_arg( $utm_params, $authorize_url );
+		}
+
+		return $authorize_url;
+	}
+
 	public function __construct() {
 		add_action( 'admin_init', [ $this, 'handle_auth_code' ] );
+		add_filter( 'send_app/connect/authorize_url', [ $this, 'maybe_add_plg_to_authorize_url' ] );
 	}
 }

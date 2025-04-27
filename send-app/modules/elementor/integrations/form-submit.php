@@ -19,11 +19,8 @@ class Form_Submit extends Form_Submit_Base {
 		return true;
 	}
 
-	protected function get_submit_hook(): array {
-		return [
-			'name' => 'elementor_pro/forms/new_record',
-			'argc' => 2,
-		];
+	protected function get_submit_hook(): string {
+		return 'elementor_pro/forms/new_record';
 	}
 
 	public function get_integration_name(): string {

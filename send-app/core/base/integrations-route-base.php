@@ -89,7 +89,7 @@ abstract class Integrations_Route_Base extends Route_Base {
 			return $this->respond_error_json( new \WP_Error(
 				$t->getCode(),
 				$t->getMessage(),
-				[ 'status' => 500 ]
+				[ 'status' => $t->getCode() ]
 			) );
 		}
 

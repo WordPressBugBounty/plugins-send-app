@@ -1,26 +1,25 @@
 <?php
 
-namespace Send_App\Modules\CF7\Components;
+namespace Send_App\Modules\WP_Forms\Components;
 
 use Send_App\Core\Integrations\Classes\Forms\Forms_Component_Base;
 use Send_App\Core\Integrations\Options\Disabled_Forms_Option;
-use Send_App\Modules\CF7\Classes\Forms_Data_Helper;
-use Send_App\Modules\CF7\Module;
+use Send_App\Modules\WP_Forms\Classes\Forms_Data_Helper;
+use Send_App\Modules\WP_Forms\Module;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
 class Forms extends Forms_Component_Base {
-
 	protected function get_name(): string {
 		return Module::get_name();
 	}
 
 	/**
-	 * Return all forms for the Elementor integration.
+	 * Return all forms for the forms/all endpoint.
 	 *
-	 * @param array $response
+	 * @param array             $response
 	 * @param ?\WP_REST_Request $request
 	 *
 	 * @return array
@@ -43,15 +42,6 @@ class Forms extends Forms_Component_Base {
 		return array_merge( $response, $all_forms );
 	}
 
-	/**
-	 * Returns details for a single form
-	 *
-	 * @param array            $response
-	 * @param \WP_REST_Request $request
-	 *
-	 * @return array
-	 * @throws \Throwable
-	 */
 	public function get_form_info( array $response, \WP_REST_Request $request ): array {
 		$form_id = $request->get_param( 'form_id' );
 		if ( empty( $form_id ) ) {
@@ -59,10 +49,9 @@ class Forms extends Forms_Component_Base {
 		}
 
 		$raw_form_id = Forms_Data_Helper::extract_form_id( $form_id );
+		$form_object = Forms_Data_Helper::get_form_instance_by_id( $raw_form_id );
 
-		$form = Forms_Data_Helper::get_published_form( $raw_form_id );
-
-		if ( empty( $form ) ) {
+		if ( empty( $form_object ) ) {
 			throw new \Exception( 'Form not found', 404 );
 		}
 
@@ -74,31 +63,30 @@ class Forms extends Forms_Component_Base {
 			Disabled_Forms_Option::add( $form_id, $this->get_name() );
 		}
 
-		return $this->create_form_info( $form );
+		return $this->create_form_info( $form_object );
 	}
 
 	/**
 	 * Create details for a single form.
 	 *
-	 * @param string $form_id
+	 * @param \WP_Post $form_object
 	 *
 	 * @return array
 	 */
-	private function create_form_info( \WPCF7_ContactForm $form_object ): array {
+	private function create_form_info( \WP_Post $form_object ): array {
 		$formatted_id = Forms_Data_Helper::normalize_form_id( $form_object );
-		$title        = Forms_Data_Helper::get_form_title( $form_object );
 
 		return [
-			'id'               => $formatted_id,
-			'name'             => $title,
+			'id' => Forms_Data_Helper::prepare_form_id( Forms_Data_Helper::get_form_id( $form_object ) ),
+			'name' => Forms_Data_Helper::get_form_title( $form_object ),
 			'tracking_enabled' => ! $this->is_disabled_form( $formatted_id ),
-			'integration'      => $this->get_name(),
-			'page_ids'         => [],
+			'integration' => $this->get_name(),
+			'page_ids' => [],
 		];
 	}
 
 	public function get_forms( array $post_ids, bool $force = false ): array {
-		$forms           = [];
+		$forms = [];
 		$published_forms = Forms_Data_Helper::get_published_forms();
 
 		foreach ( $published_forms as $form ) {
@@ -117,16 +105,7 @@ class Forms extends Forms_Component_Base {
 	 * @return array
 	 */
 	public function get_form_info_legacy( string $form_id ): array {
-		$forms     = $this->get_forms( [] );
-		$form_info = [];
-
-		foreach ( $forms as $form ) {
-			if ( $form['id'] === $form_id ) {
-				$form_info = $form;
-			}
-		}
-
-		return $form_info;
+		return [];
 	}
 
 	public function get_disabled_forms(): array {
@@ -135,7 +114,7 @@ class Forms extends Forms_Component_Base {
 			return $disabled_forms;
 		}
 
-		$disabled_forms = Disabled_Forms_Option::get_all( Module::get_name() );
+		$disabled_forms = Disabled_Forms_Option::get_all( $this->get_name() );
 
 		return $disabled_forms;
 	}
