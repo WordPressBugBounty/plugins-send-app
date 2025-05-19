@@ -17,6 +17,10 @@ class Cart_Id_Helper {
 
 	public static function create_or_get_cart_id() {
 		// Check if a custom cart ID exists and if it's still valid
+		if ( ! WC()->session ) {
+			return 'no-cart';
+		}
+
 		$custom_cart_id = WC()->session->get( self::CUSTOM_CART_ID_SESSION_KEY );
 		$cart_id_timestamp = WC()->session->get( self::CART_ID_TIMESTAMP_SESSION_KEY );
 
@@ -55,6 +59,10 @@ class Cart_Id_Helper {
 	}
 
 	public static function revoke_cart_id() {
+		if ( ! WC()->session ) {
+			return;
+		}
+
 		WC()->session->set( self::CART_ID_TIMESTAMP_SESSION_KEY, time() - self::CART_ID_TTL );
 	}
 }

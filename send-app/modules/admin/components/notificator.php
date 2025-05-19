@@ -5,7 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-use Elementor\WPNotificationsPackage\V110\Notifications as Notifications_SDK;
+use Elementor\WPNotificationsPackage\V120\Notifications as Notifications_SDK;
 use Send_App\Modules\Admin\Classes\Notification_Template;
 
 class Notificator {
@@ -49,15 +49,18 @@ class Notificator {
 	}
 
 	public function __construct() {
-		if ( ! class_exists( 'Elementor\WPNotificationsPackage\V110\Notifications' ) ) {
+		if ( ! class_exists( 'Elementor\WPNotificationsPackage\V120\Notifications' ) ) {
 			require_once SEND_PATH . 'vendor/autoload.php';
 		}
 
-		$this->notificator = new Notifications_SDK(
-			'send',
-			SEND_VERSION,
-			'snd'
-		);
+		$this->notificator = new Notifications_SDK( [
+			'app_name' => 'send',
+			'app_version' => SEND_VERSION,
+			'short_app_name' => 'snd',
+			'app_data' => [
+				'plugin_basename' => SEND_PLUGIN_BASE,
+			],
+		] );
 
 		add_action( 'admin_footer', [ $this, 'print_notifications_dialog' ] );
 		add_filter( 'plugin_row_meta', [ $this, 'plugin_row_meta' ], 10, 2 );

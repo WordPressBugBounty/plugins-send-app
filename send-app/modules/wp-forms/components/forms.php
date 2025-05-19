@@ -3,7 +3,6 @@
 namespace Send_App\Modules\WP_Forms\Components;
 
 use Send_App\Core\Integrations\Classes\Forms\Forms_Component_Base;
-use Send_App\Core\Integrations\Options\Disabled_Forms_Option;
 use Send_App\Modules\WP_Forms\Classes\Forms_Data_Helper;
 use Send_App\Modules\WP_Forms\Module;
 
@@ -42,38 +41,14 @@ class Forms extends Forms_Component_Base {
 		return array_merge( $response, $all_forms );
 	}
 
-	public function get_form_info( array $response, \WP_REST_Request $request ): array {
-		$form_id = $request->get_param( 'form_id' );
-		if ( empty( $form_id ) ) {
-			throw new \Exception( 'Missing form_id param', 400 );
-		}
-
-		$raw_form_id = Forms_Data_Helper::extract_form_id( $form_id );
-		$form_object = Forms_Data_Helper::get_form_instance_by_id( $raw_form_id );
-
-		if ( empty( $form_object ) ) {
-			throw new \Exception( 'Form not found', 404 );
-		}
-
-		$enable_tracking = $request->get_param( 'trackingEnabled' );
-
-		if ( $enable_tracking ) {
-			Disabled_Forms_Option::remove( $form_id, $this->get_name() );
-		} else {
-			Disabled_Forms_Option::add( $form_id, $this->get_name() );
-		}
-
-		return $this->create_form_info( $form_object );
-	}
-
 	/**
 	 * Create details for a single form.
 	 *
-	 * @param \WP_Post $form_object
+	 * @param $form_object
 	 *
 	 * @return array
 	 */
-	private function create_form_info( \WP_Post $form_object ): array {
+	protected function create_form_info( $form_object ): array {
 		$formatted_id = Forms_Data_Helper::normalize_form_id( $form_object );
 
 		return [
@@ -108,18 +83,8 @@ class Forms extends Forms_Component_Base {
 		return [];
 	}
 
-	public function get_disabled_forms(): array {
-		static $disabled_forms = null;
-		if ( ! is_null( $disabled_forms ) ) {
-			return $disabled_forms;
-		}
-
-		$disabled_forms = Disabled_Forms_Option::get_all( $this->get_name() );
-
-		return $disabled_forms;
-	}
-
-	public function is_disabled_form( string $form_id ): bool {
-		return in_array( $form_id, $this->get_disabled_forms(), true );
+	protected function extract_form_by_external_id( string $form_id ) {
+		$raw_form_id = Forms_Data_Helper::extract_form_id( $form_id );
+		return Forms_Data_Helper::get_form_instance_by_id( $raw_form_id );
 	}
 }

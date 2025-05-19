@@ -5,11 +5,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-use Send_App\Core\Logger;
-use Send_App\Modules\Woocommerce\Classes\Cart_Id_Helper;
-use Send_App\Modules\Woocommerce\Classes\Customer_Helper;
-use Send_App\Modules\Woocommerce\Classes\Woo_Integration_Base;
-use Send_App\Modules\Woocommerce\Classes\API_Helper;
+use Send_App\Modules\Woocommerce\Classes\{
+	Cart_Id_Helper,
+	Customer_Helper,
+	Order_Helper,
+	Woo_Integration_Base,
+	API_Helper
+};
 
 class Orders extends Woo_Integration_Base {
 
@@ -57,53 +59,10 @@ class Orders extends Woo_Integration_Base {
 				return [];
 			}
 		}
-		$order_date = $entity_object->get_date_created();
-		$order_id = $entity_object->get_id();
 
-		$customer = Customer_Helper::get_customer_data_by_order( $entity_object );
 		$cart_id = $entity_object->get_meta( self::META_KEY_CART_ID );
 
-		$order_details = [
-			'order_id' => $order_id,
-			'type' => 'sync',
-			'status' => $entity_object->get_status(),
-			'total_price' => $entity_object->get_total(),
-			'order_date_created' => $order_date->getTimestamp(),
-			'order_date_paid' => $entity_object->get_date_paid() ? $entity_object->get_date_paid()->getTimestamp() : 0,
-			'order_date_completed' => $entity_object->get_date_completed() ? $entity_object->get_date_completed()->getTimestamp() : 0,
-			'order_date_modified' => $entity_object->get_date_modified() ? $entity_object->get_date_modified()->getTimestamp() : 0,
-			'is_woo_customer' => true,
-			'customer' => $customer,
-			'payment_method' => $entity_object->get_payment_method(),
-			'payment_method_title' => $entity_object->get_payment_method_title(),
-			'customer_note' => $entity_object->get_customer_note(),
-			'order_items' => [], // Array of order items details
-			'user_data' => $customer, // same as customer info - just for consistency with other functions
-			'quantity' => $entity_object->get_item_count(),
-			'currency' => $entity_object->get_currency(),
-			'created_via' => $entity_object->get_created_via(),
-			// Add more details as needed using order object methods
-		];
-
-		if ( ! empty( $cart_id ) ) {
-			$order_details['cart_id'] = $cart_id;
-		}
-
-		// Loop through order items and get details
-		foreach ( $entity_object->get_items() as $item_id => $item ) {
-			$order_details['order_items'][] = [
-				'product_id' => $item->get_product_id(),
-				'variation_id' => $item->get_variation_id(),
-				'name' => $item->get_name(),
-				'quantity' => $item->get_quantity(),
-				'subtotal' => $item->get_subtotal(),
-				'total' => $item->get_total(),
-				'tax_class' => $item->get_tax_class(),
-				// Add more item details as needed using item object methods
-			];
-		}
-
-		return $order_details;
+		return Order_Helper::get_order_data( $entity_object, $cart_id );
 	}
 
 	/**
@@ -231,7 +190,6 @@ class Orders extends Woo_Integration_Base {
 	*/
 
 	public function on_payment_failed( $order_id, $order, $status ) {
-		Logger::debug( 'Payment Failed: Order ID ' . $order_id );
 		$this->add_scheduled_action( $this->get_async_update_hook_name(), [
 			'id' => $order_id,
 			'trigger' => 'payment failed',

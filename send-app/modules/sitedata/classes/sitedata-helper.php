@@ -14,12 +14,17 @@ class Sitedata_Helper {
 
 		$timezone = \wp_timezone();
 		$gmt_offset = $timezone->getOffset( new \DateTime() ) / HOUR_IN_SECONDS;
+		$timezone_name = $timezone->getName();
+
+		if ( false !== strpos( strtolower( $timezone_name ), 'utc' ) || false !== strpos( $timezone_name, ':' ) ) {
+			$timezone_name = '';
+		}
 
 		$site_data = [
 			'site' => [
 				'language' => get_locale(),
 				'timezone' => [
-					'name' => $timezone->getName(),
+					'name' => $timezone_name,
 					'gmt_offset' => $gmt_offset,
 				],
 				'name' => get_bloginfo( 'name' ),

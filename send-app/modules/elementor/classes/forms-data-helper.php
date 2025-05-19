@@ -70,6 +70,8 @@ class Forms_Data_Helper {
 	}
 
 	/**
+	 * will return a nested array, top-level is by post-id and for each post, the related forms
+	 *
 	 * @param string $form_id
 	 *
 	 * @return array

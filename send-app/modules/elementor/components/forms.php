@@ -3,7 +3,6 @@ namespace Send_App\Modules\Elementor\Components;
 
 use Send_App\Modules\Elementor\Module;
 use Send_App\Modules\Elementor\Classes\Forms_Data_Helper;
-use Send_App\Core\Integrations\Options\Disabled_Forms_Option;
 use Send_App\Core\Integrations\Classes\Forms\Forms_Component_Base;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -53,73 +52,27 @@ class Forms extends Forms_Component_Base {
 	}
 
 	/**
-	 * Returns details for a single Form
-	 *
-	 * @param array $response
-	 * @param \WP_REST_Request $request
-	 *
-	 * @return array
-	 * @throws \Throwable
-	 */
-	public function get_form_info( array $response, \WP_REST_Request $request ): array {
-		$form_id = $request->get_param( 'form_id' );
-		if ( empty( $form_id ) ) {
-			throw new \Exception( 'Missing form_id param', 400 );
-		}
-
-		// will return a nested array, top level is by post-id and for each post - the related forms
-		$form_instances = Forms_Data_Helper::get_form_instances_by_form_id( $form_id );
-
-		if ( empty( $form_instances ) ) {
-			throw new \Exception( 'Form not found', 404 );
-		}
-
-		$form_info = [];
-
-		$enable_tracking = $request->get_param( 'trackingEnabled' );
-
-		if ( $enable_tracking ) {
-			Disabled_Forms_Option::remove( $form_id, $this->get_name() );
-		} else {
-			Disabled_Forms_Option::add( $form_id, $this->get_name() );
-		}
-
-		foreach ( $form_instances as $post_id => $form ) {
-			// TODO: do we need to return multiple instances of the same form but in different pages?
-			// if we do - add the $post_id as array key to the $from_info array,
-			// and maybe add the post_id as an optional request param
-			// and return an array instead of overriding the same one
-			$form_info = $this->create_form_info( $form );
-		}
-
-		if ( empty( $form_info ) ) {
-			throw new \Exception( 'Form not found', 404 );
-		}
-
-		return $form_info;
-	}
-
-	/**
 	 * Create details for a single form.
 	 *
-	 * @param array $form
+	 * @param $form_object
 	 * @return array
 	 */
-	private function create_form_info( array $form ): array {
-		static $disabled_forms = null;
-
-		$form_id = $form['id'];
-
-		if ( is_null( $disabled_forms ) ) {
-			$disabled_forms = Disabled_Forms_Option::get_all( $this->get_name() );
-		}
-
+	protected function create_form_info( $form_object ): array {
 		return [
-			'id' => $form_id,
-			'name' => $form['settings']['form_name'],
-			'tracking_enabled' => ! in_array( $form_id, $disabled_forms, true ),
+			'id' => $form_object['id'],
+			'name' => $form_object['settings']['form_name'],
+			'tracking_enabled' => ! $this->is_disabled_form( $form_object['id'] ),
 			'integration' => $this->get_name(),
 		];
+	}
+
+	protected function extract_form_by_external_id( string $form_id ) {
+		$form_instances = Forms_Data_Helper::get_form_instances_by_form_id( $form_id );
+		foreach ( $form_instances as $post_id => $form ) {
+			return $form;
+		}
+
+		return null;
 	}
 
 	/**
@@ -148,13 +101,5 @@ class Forms extends Forms_Component_Base {
 		}
 
 		return $form_info;
-	}
-
-	public function get_disabled_forms(): array {
-		return Disabled_Forms_Option::get_all( $this->get_name() );
-	}
-
-	public function is_disabled_form( string $form_id ): bool {
-		return in_array( $form_id, $this->get_disabled_forms(), true );
 	}
 }

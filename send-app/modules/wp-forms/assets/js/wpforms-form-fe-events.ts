@@ -12,6 +12,8 @@ declare const eSendWpformsSettings: {
 	idPrefix: string;
 };
 
+declare const wpforms: any;
+
 export default class WpFormsFormFeEvents extends FormFeEvents {
 	init() {
 		this.formSelectors = eSendWpformsSettings.formSelectors;
@@ -47,7 +49,8 @@ export default class WpFormsFormFeEvents extends FormFeEvents {
 		return formData;
 	}
 }
-
-window.addEventListener('load', () => {
-	new WpFormsFormFeEvents();
-});
+window.addEventListener( 'load', () => {
+	if (typeof wpforms !== 'undefined') {
+			new WpFormsFormFeEvents();
+	}
+} );

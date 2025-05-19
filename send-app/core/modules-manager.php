@@ -47,6 +47,7 @@ final class Modules_Manager {
 		return [
 			'Elementor',
 			'Wp_Forms',
+			'Ninja_Forms',
 			'Woocommerce',
 			'Admin',
 			'CF7',
