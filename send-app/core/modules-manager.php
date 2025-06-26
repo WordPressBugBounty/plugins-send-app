@@ -51,6 +51,7 @@ final class Modules_Manager {
 			'Woocommerce',
 			'Admin',
 			'CF7',
+			'Gravityforms',
 			'Sitedata',
 		];
 	}

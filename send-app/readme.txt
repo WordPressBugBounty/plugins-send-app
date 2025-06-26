@@ -5,7 +5,7 @@ Tags: email marketing, marketing, newsletters, workflow automation, marketing au
 Requires at least: 6.3
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 1.4.0
+Stable tag: 1.5.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -119,6 +119,13 @@ This plugin connects to an external API to facilitate marketing campaign managem
 **Privacy Policy**: [https://send2.co/privacy-policy/](https://send2.co/privacy-policy/)
 
 == Changelog ==
+
+= 1.5.0 - 2025-06-24 =
+* New: Gravity Forms integration for form submission tracking
+* Tweak: Automatic domain redirect URI updates when domain changes
+* Fix: WooCommerce cart totals now include all fees, taxes, and discounts
+* Fix: Fix width when the sidebar is collapsed
+* Fix: Submit Form Request Fails for Invalid Form Meta Value
 
 = 1.4.0 - 2025-05-15 =
 * New: Ninja Forms integration

@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace Send_App\Core\Integrations\Classes;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -55,12 +57,19 @@ abstract class Integration_Module_Base extends Module_Base {
 	}
 
 	/**
-	 * @return bool | \WP_Error
+	 * Check if the integration is ready to sync.
+	 *
+	 * @return bool|\WP_Error
 	 */
 	public function ready_to_sync() {
 		return true;
 	}
 
+	/**
+	 * Sync all integrations.
+	 *
+	 * @return array
+	 */
 	public function sync(): array {
 		$sync_result = [];
 		foreach ( $this->integrations as $id => $integration ) {
@@ -70,6 +79,11 @@ abstract class Integration_Module_Base extends Module_Base {
 		return $sync_result;
 	}
 
+	/**
+	 * Register REST API hooks for the module.
+	 *
+	 * @return void
+	 */
 	public function register_rest_hooks(): void {
 		// Add the module specific endpoints for enabling & disabling the entire module-integration.
 		// To enable/disable specific integrations with the module, tweak the route's "name" part and register the filter.
@@ -87,12 +101,23 @@ abstract class Integration_Module_Base extends Module_Base {
 		add_filter( $legacy_actions_filter_prefix . '/disconnect', [ $this, 'disable' ], 10, 2 );
 	}
 
+	/**
+	 * Register hooks for the module.
+	 *
+	 * @return void
+	 */
 	public function register_hooks(): void {
 		parent::register_hooks();
 		add_action( 'send_app/integration-modules/register', [ $this, 'register' ] );
 		add_action( 'rest_api_init', [ $this, 'register_rest_hooks' ], 9 );
 	}
 
+	/**
+	 * Register the module with the integrations manager.
+	 *
+	 * @param Integrations_Manager $manager
+	 * @return void
+	 */
 	public function register( Integrations_Manager $manager ): void {
 		$this->register_integrations();
 
@@ -102,17 +127,33 @@ abstract class Integration_Module_Base extends Module_Base {
 	}
 
 	/**
+	 * Add an integration to the module.
+	 *
 	 * @param string $id Component ID.
-	 * @param Integration_Base  $instance An instance of the component.
+	 * @param Integration_Base $instance An instance of the component.
+	 * @return void
 	 */
-	public function add_integration( string $id, Integration_Base $instance ) {
+	public function add_integration( string $id, Integration_Base $instance ): void {
 		$this->integrations[ $id ] = $instance;
 	}
 
+	/**
+	 * Get an integration by ID.
+	 *
+	 * @param string $id
+	 * @return Integration_Base|null
+	 */
 	public function get_integration( string $id ): ?Integration_Base {
 		return $this->integrations[ $id ] ?? null;
 	}
 
+	/**
+	 * Enable the module.
+	 *
+	 * @param mixed $response
+	 * @param \WP_REST_Request $request
+	 * @return bool|\WP_Error
+	 */
 	public function enable( $response, $request ) {
 		// Check the integration plugin is activated.
 		if ( ! $this->is_plugin_activated() ) {
@@ -143,6 +184,13 @@ abstract class Integration_Module_Base extends Module_Base {
 		return true;
 	}
 
+	/**
+	 * Disable the module.
+	 *
+	 * @param mixed $response
+	 * @param \WP_REST_Request $request
+	 * @return bool|\WP_Error
+	 */
 	public function disable( $response, $request ) {
 		// Check the integration is not already disabled.
 		if ( ! $this->is_enabled() ) {
@@ -159,6 +207,13 @@ abstract class Integration_Module_Base extends Module_Base {
 		return true;
 	}
 
+	/**
+	 * Handle sync request.
+	 *
+	 * @param mixed $response
+	 * @param \WP_REST_Request $request
+	 * @return bool|\WP_Error
+	 */
 	public function sync_handler( $response, $request ) {
 		// Check the integration is not already disabled.
 		if ( ! $this->is_enabled() ) {
@@ -180,16 +235,23 @@ abstract class Integration_Module_Base extends Module_Base {
 		return true;
 	}
 
+	/**
+	 * Handle status request.
+	 *
+	 * @param mixed $response
+	 * @param \WP_REST_Request $request
+	 * @return array
+	 */
 	public function status_handler( $response, $request ): array {
 		return $this->get_info();
 	}
 
 	/**
-	 * @param string $id
+	 * Get all integrations.
 	 *
-	 * @return Base[]
+	 * @return Integration_Base[]
 	 */
-	public function get_integrations( string $id ): array {
+	public function get_integrations(): array {
 		return $this->integrations;
 	}
 
@@ -217,11 +279,21 @@ abstract class Integration_Module_Base extends Module_Base {
 		}
 	}
 
+	/**
+	 * Get list of integration IDs.
+	 *
+	 * @return array
+	 */
 	protected function integrations_list(): array {
 		return [];
 	}
 
-	public function register_integration_hooks() {
+	/**
+	 * Register hooks for all integrations.
+	 *
+	 * @return void
+	 */
+	public function register_integration_hooks(): void {
 		foreach ( $this->integrations as $integration ) {
 			$integration->register_hooks();
 		}

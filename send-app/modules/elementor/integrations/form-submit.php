@@ -54,6 +54,11 @@ class Form_Submit extends Form_Submit_Base {
 		$document = $elementor_plugin->documents->get( $form_post_id );
 		$document_type = $document ? $document->get_name() : '';
 
-		return new Form_Submit_Data( $module::get_name(), $form_id, $form_post_id, $fields, $record->get_form_settings( 'form_name' ), $document_type, $record->get( 'meta' ) );
+		$meta = $record->get( 'meta' );
+		if ( empty( $meta ) || ! is_array( $meta ) ) {
+			$meta = null;
+		}
+
+		return new Form_Submit_Data( $module::get_name(), $form_id, $form_post_id, $fields, $record->get_form_settings( 'form_name' ), $document_type, $meta );
 	}
 }

@@ -1,9 +1,15 @@
-@import "./variables.scss";
+@use "./variables.scss" as variables;
 
 html, body {
     height: 100%;
     margin: 0;
     padding: 0;
+
+	&.folded {
+		.wrap .esend-app {
+			width: calc(100vw - #{variables.$admin-folded-menu-width});
+		}
+	}
 }
 
 #wpbody {
@@ -18,10 +24,10 @@ html, body {
 
     .esend-app {
 		position: fixed;
-        height: calc(100vh - $admin-bar-height);
-		width: calc(100vw - $admin-menu-width);
+        height: calc(100vh - #{variables.$admin-bar-height});
+		width: calc(100vw - #{variables.$admin-menu-width});
         overflow: hidden;
-		top: $admin-bar-height;
+		top: variables.$admin-bar-height;
 		z-index: 1000;
 
         .esend-iframe {
@@ -35,7 +41,7 @@ html, body {
 
 @media only screen and (max-width: 960px) {
 	.wrap .esend-app {
-		width: calc(100vw - $admin-menu-width-mobile);
+		width: calc(100vw - #{variables.$admin-menu-width-mobile});
 	}
 }
 

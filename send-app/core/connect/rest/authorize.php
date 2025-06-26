@@ -44,14 +44,7 @@ class Authorize extends Connect_Route_Base {
 			}
 
 			if ( ! Utils::is_valid_home_url() ) {
-				if ( $request->get_param( 'update_redirect_uri' ) ) {
-					Service::update_redirect_uri();
-				} else {
-					return $this->respond_error_json( [
-						'message' => esc_html__( 'Connected domain mismatch', 'send-app' ),
-						'code'    => 'forbidden',
-					] );
-				}
+				Service::update_redirect_uri();
 			}
 
 			$authorize_url = Utils::get_authorize_url( $client_id );
