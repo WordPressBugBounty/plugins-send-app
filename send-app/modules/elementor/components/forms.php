@@ -48,7 +48,7 @@ class Forms extends Forms_Component_Base {
 			return $response;
 		}
 
-		return array_merge( $response, $forms_data );
+		return $response + $forms_data;
 	}
 
 	/**

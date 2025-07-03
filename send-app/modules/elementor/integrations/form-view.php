@@ -2,6 +2,7 @@
 namespace Send_App\Modules\Elementor\Integrations;
 
 use Send_App\Core\Integrations\Classes\Forms\Form_View_Base;
+use Send_App\Modules\Elementor\Classes\Forms_Data_Helper;
 use Send_App\Modules\Elementor\Module;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -37,6 +38,38 @@ class Form_View extends Form_View_Base {
 
 	protected function get_init_hook_name(): string {
 		return 'elementor/frontend/after_register_scripts';
+	}
+
+	protected function prepare_form_id(): string {
+		$form_id = parent::prepare_form_id();
+		$template_id = sanitize_key( $_POST['template_id'] ); //@phpcs:ignore WordPress.Security.NonceVerification.Missing
+		$page_id = sanitize_key( $_POST['page_id'] );  // @phpcs:ignore WordPress.Security.NonceVerification.Missing
+
+		if ( empty( $template_id ) || ( $template_id === $page_id ) ) {
+			return $form_id;
+		}
+
+		$elementor_plugin = Module::get_instance()->get_elementor_plugin();
+
+		$document = $elementor_plugin->documents->get( $template_id );
+		if ( ! $document ) {
+			return $form_id;
+		}
+
+		$form = Forms_Data_Helper::find_form_element_recursive( $document->get_elements_data(), $form_id );
+		if ( empty( $form ) ) {
+			return $form_id;
+		}
+		if ( empty( $form['templateID'] ) ) {
+			return $form['id'];
+		}
+
+		$form = Forms_Data_Helper::get_form_by_template_id( $form['templateID'] );
+		if ( ! empty( $form ) ) {
+			return $form['id'];
+		}
+
+		return $form_id;
 	}
 
 	public function get_integration_name(): string {

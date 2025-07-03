@@ -22,12 +22,16 @@ abstract class Form_Submit_Base extends Integration_Base {
 		return Forms_Api_Helper::get_async_hook_name( $this->get_integration_name(), static::EVENT );
 	}
 
-	public function on_form_submit( $record, $handler ): void {
+	public function on_form_submit( $record, $handler ) {
+
+		if ( is_null( $handler ) ) {
+			return null;
+		}
 		// prepare the data synchronically in order to keep it the same as the one submitted
 		$form_data = $this->prepare_data( $record, $handler );
 
 		if ( is_null( $form_data ) ) {
-			return;
+			return null;
 		}
 
 		$payload_data = $form_data->get_data();

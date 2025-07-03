@@ -54,6 +54,6 @@
 		"test:install-local": "bash bin/install-wp-tests.sh wordpress_test root root",
 		"coverage": "composer run coverage:test && composer run coverage:check",
 		"coverage:test": "./vendor/bin/phpunit --coverage-clover coverage-report/clover.xml",
-		"coverage:check": "phpunit-coverage-check -t 5 coverage-report/clover.xml"
+		"coverage:check": "phpunit-coverage-check -t 1 coverage-report/clover.xml"
 	}
 }

@@ -32,7 +32,17 @@ export default class ElementorFormFeEvents extends FormFeEvents {
 	}
 
 	getPostId(form: Element): string {
+		const queriedId = form.querySelector( 'input[name="queried_id"]' )?.getAttribute( 'value' );
+		if ( queriedId ) {
+			return queriedId;
+		}
 		return form.querySelector( 'input[name="post_id"]' )?.getAttribute( 'value' ) || '';
+	}
+
+	prepareFormData(form: Element, action: string): FormData {
+		const formData = super.prepareFormData(form, action);
+		formData.append( 'template_id', form.querySelector( 'input[name="post_id"]' )?.getAttribute( 'value' ) || '' );
+		return formData;
 	}
 }
 

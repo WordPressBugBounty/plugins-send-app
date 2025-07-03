@@ -96,15 +96,25 @@ abstract class Form_View_Base extends Integration_Base {
 		return false;
 	}
 
+	protected function prepare_form_id(): string {
+		// PHPCS: nonce verified in the ajax handler
+		return sanitize_key( $_POST['form_id'] ); // @phpcs:ignore WordPress.Security.NonceVerification.Missing
+	}
+
+	protected function prepare_page_id(): string {
+		// PHPCS: nonce verified in the ajax handler
+		return sanitize_key( $_POST['page_id'] ); // @phpcs:ignore WordPress.Security.NonceVerification.Missing
+	}
+
 	/**
 	 * @param string $event
 	 *
 	 * @return array | \WP_Error
 	 */
 	protected function send_form_event( string $event ) {
+		$form_id = $this->prepare_form_id();
+		$page_id = $this->prepare_page_id();
 		// PHPCS: nonce verified in the ajax handler
-		$form_id = sanitize_key( $_POST['form_id'] ); // @phpcs:ignore WordPress.Security.NonceVerification.Missing
-		$page_id = sanitize_key( $_POST['page_id'] ); // @phpcs:ignore WordPress.Security.NonceVerification.Missing
 		$location = sanitize_key( $_POST['location'] ); // @phpcs:ignore WordPress.Security.NonceVerification.Missing
 
 		if ( $this->is_form_disabled( $form_id ) ) {

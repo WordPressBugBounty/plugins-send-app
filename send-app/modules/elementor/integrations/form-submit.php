@@ -43,15 +43,23 @@ class Form_Submit extends Form_Submit_Base {
 		$forms_component = $module->get_component( 'Forms' );
 
 		$form_id = $record->get_form_settings( 'id' );
+		$element_id = $handler->get_current_form()['id'];
+
+		// Maybe it's a global form:
+		if ( $element_id !== $form_id ) {
+			$form_id = $element_id;
+		}
 
 		if ( $forms_component->is_disabled_form( $form_id ) ) {
 			return null;
 		}
 
 		$form_post_id = $record->get_form_settings( 'form_post_id' );
+		$post_id = $_POST['queried_id'] ?? $form_post_id; // @phpcs:ignore WordPress.Security.NonceVerification.Missing
+
 		$fields = $record->get( 'sent_data' );
 		$elementor_plugin = $module->get_elementor_plugin();
-		$document = $elementor_plugin->documents->get( $form_post_id );
+		$document = $elementor_plugin->documents->get( $post_id );
 		$document_type = $document ? $document->get_name() : '';
 
 		$meta = $record->get( 'meta' );
@@ -59,6 +67,6 @@ class Form_Submit extends Form_Submit_Base {
 			$meta = null;
 		}
 
-		return new Form_Submit_Data( $module::get_name(), $form_id, $form_post_id, $fields, $record->get_form_settings( 'form_name' ), $document_type, $meta );
+		return new Form_Submit_Data( $module::get_name(), $form_id, $post_id, $fields, $record->get_form_settings( 'form_name' ), $document_type, $meta );
 	}
 }

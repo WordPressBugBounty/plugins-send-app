@@ -265,7 +265,7 @@ abstract class Integration_Module_Base extends Module_Base {
 	 *
 	 * @return void
 	 */
-	protected function register_integrations( array $integration_ids = null ): void {
+	protected function register_integrations( ?array $integration_ids = null ): void {
 		if ( empty( $integration_ids ) ) {
 			$integration_ids = $this->integrations_list();
 		}

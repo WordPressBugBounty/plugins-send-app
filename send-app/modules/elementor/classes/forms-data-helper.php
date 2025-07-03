@@ -24,7 +24,10 @@ class Forms_Data_Helper {
 
 		$forms = [];
 		foreach ( $post_ids as $post_id ) {
-			$forms[ $post_id ] = self::get_forms_for_post_id( $post_id );
+			$post_forms = self::get_forms_for_post_id( $post_id );
+			if ( ! empty( $post_forms ) ) {
+				$forms[ $post_id ] = $post_forms;
+			}
 		}
 
 		return $forms;
@@ -51,14 +54,58 @@ class Forms_Data_Helper {
 		}
 
 		$elementor_plugin->db->iterate_data( $data, function ( $element ) use ( &$forms ) {
-			if ( empty( $element['widgetType'] ) || 'form' !== $element['widgetType'] ) {
-				return null;
+			if ( empty( $element['widgetType'] ) ) {
+				return;
 			}
 
-			$forms[] = $element;
+			if ( 'form' === $element['widgetType'] ) {
+				$forms[] = $element;
+				return;
+			}
+
+			if ( ! empty( $element['templateID'] ) ) {
+				$form = self::get_form_by_template_id( $element['templateID'] );
+				if ( $form ) {
+					$forms[] = $form;
+				}
+			}
 		} );
 
 		return $forms;
+	}
+
+	public static function get_form_by_template_id( $template_id ): ?array {
+		$elementor_plugin = Module::get_instance()->get_elementor_plugin();
+		$template = $elementor_plugin->documents->get( $template_id );
+
+		if ( empty( $template ) ) {
+			return null;
+		}
+
+		$template_elements = $template->get_elements_data();
+		if ( empty( $template_elements[0] ) ) {
+			return null;
+		}
+
+		return $template_elements[0];
+	}
+
+	public static function find_form_element_recursive( $elements, $form_id ): ?array {
+		foreach ( $elements as $element ) {
+			if ( $form_id === $element['id'] ) {
+				return $element;
+			}
+
+			if ( ! empty( $element['elements'] ) ) {
+				$element = self::find_form_element_recursive( $element['elements'], $form_id );
+
+				if ( $element ) {
+					return $element;
+				}
+			}
+		}
+
+		return null;
 	}
 
 	public static function get_post_ids_with_forms(): array {
