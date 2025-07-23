@@ -10,6 +10,7 @@ use Send_App\Core\Connect\Classes\Exceptions\Service_Exception;
 use Send_App\Core\Connect\Classes\Service as Connect_Service;
 use Send_App\Core\Connect\Classes\Data as Connect_Data;
 use Send_App\Core\Connect\Classes\Utils as Connect_Utils;
+use Send_App\Core\Classes\Data_Reporting;
 
 final class API {
 
@@ -46,6 +47,32 @@ final class API {
 
 		if ( ! empty( $site_id ) ) {
 			$additional_headers['site-id'] = $site_id;
+		} else {
+			// Prevent form/woo events from being sent without site-id
+			$is_form_event = strpos( $endpoint, 'events/form/' ) !== false;
+			$is_woo_event = strpos( $endpoint, 'woo/' ) !== false;
+			$is_client_logs = strpos( $endpoint, 'client-logs' ) !== false;
+
+			if ( ( $is_form_event || $is_woo_event ) && ! $is_client_logs ) {
+				$event_type = $is_form_event ? 'form' : 'woo';
+
+				// Log the prevention
+				$data_reporting = new Data_Reporting();
+				$data_reporting->send_client_log(
+					"Prevented sending {$event_type} event without site-id",
+					'warn',
+					'plugin',
+					[
+						'endpoint' => $endpoint,
+						'method' => $method,
+						'event_type' => $event_type,
+						'has_access_token' => ! empty( Connect_Data::get_access_token() ),
+						'is_connected' => Connect_Utils::is_connected(),
+					]
+				);
+
+				return;
+			}
 		}
 
 		// Replace the headers array

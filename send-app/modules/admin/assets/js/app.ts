@@ -1,5 +1,52 @@
 import { Iframe } from './iframe';
 
+// Message Types
+type MessageType = 
+	| 'get-site-config'
+	| 'connect/reconnect'
+	| 'connect/switch-domain'
+	| 'connect/authorize'
+	| 'get-integrations'
+	| 'get-integrations-status'
+	| 'get-forms'
+	| 'integrations/forms/all'
+	| 'integrations-disconnect'
+	| 'integrations-connect'
+	| 'connect-plugin'
+	| 'get-forms-list-by-source-id'
+	| 'gallery-images'
+	| 'activate-form-tracking'
+	| 'activate-plugin'
+	| 'create-plugin-forms'
+	| 'sync-woo'
+	| 'set-current-path'
+	| 'connect/refresh-token';
+
+// Data Payload Interfaces
+interface GalleryParams {
+	search?: string;
+	per_page?: number;
+	page?: number;
+}
+
+interface FormTrackingData {
+	sourceNameId: string;
+	formId: string;
+	status: boolean;
+}
+
+interface GalleryMessageData {
+	search?: string;
+	per_page?: number;
+	page?: number;
+}
+
+// Generic Message Event Interface
+interface AppMessageEvent {
+	message: MessageType;
+	data?: string | FormTrackingData | GalleryMessageData | any;
+}
+
 declare const eSendAdminAppConfig: {
 	baseRestUrl: string;
 	nonce: string;
@@ -40,7 +87,6 @@ const App = (function () {
 
 		private async reconnect(): Promise<void> {
 			await this.streamData(['connect/reconnect', '*'], 'POST');
-			window.open(window.location.href, '_self');
 		}
 
 		private async authorize(): Promise<void> {
@@ -66,6 +112,32 @@ const App = (function () {
 
 		private async sendHeaderData(): Promise<void> {
 			await this.streamData(['connect/refresh-token', '*'], 'POST');
+		}
+
+		private async handleGetGallery(data: GalleryMessageData): Promise<void> {
+			const params = data;
+			let galleryStream = 'gallery-images';
+			
+			if (params && Object.keys(params).length > 0) {
+				const urlParams = new URLSearchParams();
+				
+				if (params.search?.trim()) {
+					urlParams.append('search', params.search);
+				}
+				if (params.per_page) {
+					urlParams.append('per_page', params.per_page.toString());
+				}
+				if (params.page) {
+					urlParams.append('page', params.page.toString());
+				}
+				
+				const queryString = urlParams.toString();
+				if (queryString) {
+					galleryStream += '?' + queryString;
+				}
+			}
+			
+			await this.streamData([galleryStream, '*'], 'GET', {}, {}, 'gallery-images');
 		}
 
 		private refreshListener() {
@@ -149,6 +221,9 @@ const App = (function () {
 							'*',
 						], 'GET', {}, {}, message);
 						break;
+					case 'gallery-images':
+						await this.handleGetGallery(data);
+						break;
 					case 'activate-form-tracking':
 						await this.streamData(
 							[
@@ -183,7 +258,7 @@ const App = (function () {
 						await this.streamData(['sync-woo', '*']);
 						break;
 					case 'set-current-path':
-						localStorage.setItem('route', data);
+						localStorage.setItem('route', data as string);
 						break;
 					case 'connect/refresh-token':
 						await this.sendHeaderData();

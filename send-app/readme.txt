@@ -1,57 +1,104 @@
-=== Send - Email and SMS marketing for WordPress and for WooCommerce ===
+=== Send – Email Marketing Automation & newsletters for WordPress & WooCommerce ===
 Contributors: elemntor
 Plugin URI: https://send2.co/?utm_source=wp-plugins&utm_campaign=author-uri&utm_medium=wp-dash
 Tags: email marketing, marketing, newsletters, workflow automation, marketing automation
 Requires at least: 6.3
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 1.5.3
+Stable tag: 1.5.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-Deliver powerful email & SMS automation from your WordPress admin. Focusing on growth and building thriving businesses is surprisingly easy.
+Email marketing automation platform for WordPress. Build audiences, send newsletters, manage forms and create automations like cart recovery, welcome series, directly from your dashboard.
 
 == Description ==
 
-[Send](http://send2.co/?utm_source=wp-plugins&utm_campaign=plugin-description&utm_medium=wp-dash) by Elementor was built from the ground up for WordPress and designed specifically for WooCommerce, Send by Elementor is the ultimate all-in-one communication toolkit. It's designed to equip every website and e-commerce store with powerful capabilities to accelerate customer communication, build stronger relationships, and drive retention.
-With features like email, SMS, marketing automation, audience segmentation, and real-time analytics, Send enables web creators to deliver greater value to their customers—helping them boost sales and build thriving businesses. All of this is made seamless with tools purposefully designed for WordPress and WooCommerce, eliminating the complexity of solutions that weren't built with web creators in mind. Skip extra plugins or third‑party services. Manage your contacts, email campaigns, SMS messages, and marketing flows in one place.
+[Get started with Send](https://www.youtube.com/watch?v=9xcoDlqvsyA&t=2s)
+
+https://www.youtube.com/watch?v=9xcoDlqvsyA&t=2s
+
+[Send](http://send2.co/?utm_source=wp-plugins&utm_campaign=plugin-description&utm_medium=wp-dash) by Elementor is the ultimate email marketing automation toolkit built specifically for WordPress and sync seamlessly with WooCommerce. Designed for web creators, this all-in-one communication platform empowers you to accelerate customer communication, build stronger relationships, and drive retention through powerful email marketing and marketing automation features.
+With comprehensive broadcast and newsletter management, automated email campaigns, audience segmentation, and real-time analytics, Send enables web creators to deliver exceptional value to their customers, boosting sales and building thriving businesses. All seamlessly integrated with WordPress and WooCommerce, eliminating the complexity of external marketing tools.
+Skip multiple plugins and third-party services. Manage your contacts, email newsletters, marketing automation workflows, and campaign analytics in one powerful platform.
 
 ###Key Features (All Included for Free!)
-- **🔗 One-Click Integration:** Easily connect your WordPress site to Send with just one click. Instantly import all your contacts, purchase history, and revenue data to get a full overview of how Send contributes to your store’s success.
-- **📈 Grow Your Audience:** Manually add contacts or upload them in bulk using a CSV file. Effortlessly manage subscribed and unsubscribed users directly within your lists.
-- **📝 Seamless Form Management:**  Manage all your lead forms from the Send dashboard. Easily toggle them on or off with a single click—no need to dive into your site backend.
-- **📣 Broadcast Campaigns:** Create beautiful campaigns from scratch or choose a ready-made template. Send your campaigns to pre-set lists in just a few clicks.
-- **⚙️ Build Custom Workflows from Scratch:** Set up powerful automations by defining custom triggers and actions that respond to your customers’ unique behavior.
-- **🚀 Use Pre-Built Automation Flows:** Quickly launch automated campaigns using ready-made flows designed for a variety of scenarios—like cart-related, order-related, or seasonal events (Black Friday, Easter, and more). Each flow follows best practices and can be fully edited to match your brand and business goals.
-- **🌐 Custom Domain Setup:** Improve deliverability by sending emails from your own domain. Just follow a few simple steps—Send handles the backend setup with your hosting provider.
-- **🧱 Drag & Drop Email Builder:** Create stunning emails using a simple drag-and-drop editor. Need help with content? Use Send’s built-in AI to generate headlines, body text, and even images based on your prompts.
-- **🎨 Branded Templates:** Start with professionally designed templates and customize them to match your brand—fonts, colors, images, and more.
-- **🛒 WooCommerce Transactional Emails:** Take full control of your WooCommerce transactional emails. Make them brand-consistent and elevate the customer experience after every purchase.
-- **📊Analytics & Dashboards:** Insight at your fingertips. Make data-driven decisions with clear, comprehensive analytics that show you exactly what's working.
+- **🔗 One-Click WordPress Integration:** Seamlessly connect your WordPress site to Send with instant setup. Automatically import contacts, purchase history, and revenue data for comprehensive email marketing insights.
+- **📈 Grow Your Email List:** Easily build your subscriber base by adding contacts manually, importing via CSV, or syncing with your WooCommerce store. Manage subscribed and unsubscribed users directly within your email lists.
+- **📝 Seamless Form Management:** Control all lead generation forms from the Send dashboard. Enable or disable forms with one click—no backend configuration required for your newsletter signup forms.Manage lists directly from your forms and enrich your data.
+- **📣 Email Newsletter Campaigns:** Create beautiful email newsletters from scratch or use professional templates. Send targeted campaigns to segmented subscriber lists with just a few clicks.
+- **⚙️ Custom Marketing Automation Workflows:** Build powerful email automation sequences with custom triggers and actions that respond to customer behavior and engagement patterns.
+- **🚀 Pre-Built Email Automation Flows:** Launch automated email marketing campaigns instantly using proven flows for cart abandonment, welcome sequences, product recommendations, and seasonal promotions. Each flow follows email marketing best practices and can be customized to match your brand.
+- **🌐 Custom Domain Email Setup:** Improve email deliverability by sending newsletters and automated emails from your own domain. Simple setup process with automated backend configuration.
+- **🧱 Drag & Drop Email Builder:** Create stunning email newsletters using an intuitive drag-and-drop editor. Generate email content with built-in AI for headlines, body text, and images based on your prompts.
+- **🎨 Professional Email Templates:** Start with beautifully designed newsletter templates and customize them with your brand colors, fonts, and imagery for consistent email marketing campaigns.
+- **🛒 WooCommerce Email Integration:** Take complete control of WooCommerce transactional emails. Create brand-consistent automated emails that enhance the customer experience throughout the purchase journey.
+- **📊 Email Marketing Analytics & Dashboards:** Make data-driven decisions with comprehensive analytics showing email open rates, click-through rates, conversion tracking, and subscriber engagement metrics.
 
+[Watch how you can launch automated flow in less than 60 sec](https://www.youtube.com/watch?v=ad8SSc0gZ2U)
+
+https://www.youtube.com/watch?v=ad8SSc0gZ2U
 
 ###Perfect For
-- WordPress websites looking for hassle-free marketing automation
-- WooCommerce stores wanting to boost sales with proven automation flows
-- Web creators seeking to expand their services with an easy-to-implement marketing solution
-- Digital agencies looking to optimize ROI
-- Businesses needing effective non-complex customer communication tools
+- WordPress websites seeking hassle-free email marketing automation
+- WooCommerce stores wanting to boost sales with proven automated email campaigns
+- Web creators looking to expand services with easy-to-implement newsletter solutions
+- Digital agencies are optimizing client ROI through email marketing
+- Businesses needing effective, non-complex customer communication tools
 
 ###What Makes Send Different
-- **True One-Click Integration:** No complicated setup process
-- **Ready to Use:** Pre-built flows based on marketing best practices
-- **Built for WordPress:** Manage Send right from the WordPress admin
-- **All in one:** Professional features without the complexity of multiple plugins
-- **Fair, Usage-Based Pricing:** Pay only for what you use
+- **True WordPress Integration:** No complex setup or external account management
+- **Ready-to-Use Email Flows:** Pre-built automation workflows based on email marketing best practices
+- **Built for WordPress:** Manage your entire email marketing strategy from the WordPress admin
+- **All-in-One Solution:** Professional email marketing features without multiple plugin complexity
+- **Transparent Pricing:** Pay only for emails sent, not contact list size
 
-###💸 Pricing Made Simple
-At Send, you only pay for what you actually use. That means:
-- No charges based on contact list size
-- No hidden fees for inactive users
-- No limitations on how many contacts you upload
-- All features are free—always
-Your payment is based solely on the number of emails or SMS messages sent. Upload and manage as many contacts as you need—we only charge you for what gets delivered.
+###Simple Email Marketing Pricing
+At Send, you only pay for emails actually delivered. This means:
+– No charges based on subscriber list size
+– No hidden fees for inactive contacts
+– No limitations on contact uploads
+– All email marketing features are included free
 
+Your payment is based solely on email delivery volume. Upload unlimited contacts for newsletters and automated campaigns—we only charge for successful email delivery.
+
+###Perfect Integration Partners
+Send seamlessly integrates with popular WordPress form builders and page builders:
+📝 Form Integrations:
+– Elementor Forms (native integration)
+– Contact Form 7
+– WPForms
+– Gravity Forms
+– Ninja Forms
+
+🛒 E-commerce Integration:
+– One click integration and sync with WooCommerce (complete sync of your order history, contacts and product catalog)
+
+🎯 Lead Generation:
+– Compatible with all major WordPress themes
+– Works with any WordPress website architecture
+– Seamless newsletter signup form embedding
+
+###Email Marketing Best Practices Built-In
+- **List Management:** Advanced subscriber segmentation for targeted email campaigns
+- **Automation Triggers:** Behavior-based email sequences for maximum engagement
+- **Deliverability Optimization:** Custom domain setup and reputation management
+- **Performance Tracking:** Comprehensive analytics for email marketing optimization
+- **GDPR Compliance:** Built-in privacy controls and consent management
+
+###Transparent Pricing###
+You only pay for what you send.
+✅ All features included for free
+✅ Unlimited contact uploads
+✅ No charge for inactive users
+✅ No paywalls or upsells
+
+*You’re charged only for emails that are delivered.*
+*SMS support coming soon*
+
+###🧠 Learn More
+[Send Blog](https://send2.co/blog/)
+[Help Center](https://send2.co/help-center/)
+[Send YouTube channel](https://www.youtube.com/@Send2co)
 
 == Installation ==
 1. Install using the WordPress built-in Plugin installer, or Extract the zip file and drop the contents in the wp-content/plugins/ directory of your WordPress installation.
@@ -88,14 +135,18 @@ Your payment is based solely on the number of emails or SMS messages sent. Uploa
 == Screenshots ==
 1. Add a new contact
 2. Analyze your sites sales performance
-3. Connect and manage forms
+3. Connect your domain to Send
 4. Create a campaign using a template
 5. Create a mailing list
 6. Drag and drop email editor
-7. Get started with send_connect screen
+7. Watch tutorial videos
 8. Sending emails from a custom domain
-9. Set displayed sms number
+9. Form integrated with Send
 10. Template library
+11. Ready made workflows - launch in a click
+12. Preset abandoned cart flow
+13. New onboarding experience
+14. One click flows launch
 
 
 == Source Code ==
@@ -119,6 +170,9 @@ This plugin connects to an external API to facilitate marketing campaign managem
 
 
 == Changelog ==
+
+= 1.5.4 - 2025-07-03 =
+* Tweak: repository updates
 
 = 1.5.3 - 2025-07-03 =
 * Tweak: title update

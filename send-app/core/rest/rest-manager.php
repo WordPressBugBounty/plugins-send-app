@@ -70,6 +70,7 @@ class Rest_Manager {
 			'Integrations_Forms_Single',
 			'Integrations_Single',
 			'Integrations_Actions',
+			'Gallery_Images',
 			'Legacy\\Integrations_Connect_Disconnect',
 			'Legacy\\Integrations_Forms_Status',
 			'Legacy\\Integration_Status_Route',

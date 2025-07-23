@@ -3,4 +3,4 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
-return array('dependencies' => array(), 'version' => '605c8f890af5b44f3978');
+return array('dependencies' => array(), 'version' => '44766ea7c6c1a48491bf');
