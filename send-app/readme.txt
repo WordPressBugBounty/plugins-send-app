@@ -5,13 +5,16 @@ Tags: email marketing, marketing, newsletters, workflow automation, marketing au
 Requires at least: 6.3
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 1.5.4
+Stable tag: 1.5.5
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-Email marketing automation platform for WordPress. Build audiences, send newsletters, manage forms and create automations like cart recovery, welcome series, directly from your dashboard.
+Send automated emails, launch pre set workflows, recover carts, welcome new subscribers, manage forms, and more — all with one easy plugin made for WordPress and WooCommerce.
 
 == Description ==
+
+**Send emails that grow your business — right from WordPress.**
+Capture leads, send newsletters, recover carts, and automate your marketing with one simple plugin. Built for WordPress, works seamlessly with WooCommerce, and you only pay for what you send — no matter how many contacts you have.
 
 [Get started with Send](https://www.youtube.com/watch?v=9xcoDlqvsyA&t=2s)
 
@@ -54,29 +57,29 @@ https://www.youtube.com/watch?v=ad8SSc0gZ2U
 
 ###Simple Email Marketing Pricing
 At Send, you only pay for emails actually delivered. This means:
-– No charges based on subscriber list size
-– No hidden fees for inactive contacts
-– No limitations on contact uploads
-– All email marketing features are included free
+- No charges based on subscriber list size
+- No hidden fees for inactive contacts
+- No limitations on contact uploads
+- All email marketing features are included free
 
 Your payment is based solely on email delivery volume. Upload unlimited contacts for newsletters and automated campaigns—we only charge for successful email delivery.
 
 ###Perfect Integration Partners
 Send seamlessly integrates with popular WordPress form builders and page builders:
 📝 Form Integrations:
-– Elementor Forms (native integration)
-– Contact Form 7
-– WPForms
-– Gravity Forms
-– Ninja Forms
+- Elementor Forms (native integration)
+- Contact Form 7
+- WPForms
+- Gravity Forms
+- Ninja Forms
 
 🛒 E-commerce Integration:
-– One click integration and sync with WooCommerce (complete sync of your order history, contacts and product catalog)
+- One click integration and sync with WooCommerce (complete sync of your order history, contacts and product catalog)
 
 🎯 Lead Generation:
-– Compatible with all major WordPress themes
-– Works with any WordPress website architecture
-– Seamless newsletter signup form embedding
+- Compatible with all major WordPress themes
+- Works with any WordPress website architecture
+- Seamless newsletter signup form embedding
 
 ###Email Marketing Best Practices Built-In
 - **List Management:** Advanced subscriber segmentation for targeted email campaigns
@@ -171,11 +174,8 @@ This plugin connects to an external API to facilitate marketing campaign managem
 
 == Changelog ==
 
-= 1.5.4 - 2025-07-03 =
-* Tweak: repository updates
-
-= 1.5.3 - 2025-07-03 =
-* Tweak: title update
+= 1.5.5 - 2025-07-03 =
+* Tweak: repository assets update
 
 = 1.5.2 - 2025-07-03 =
 * Tweak: updating repository assets and texts
