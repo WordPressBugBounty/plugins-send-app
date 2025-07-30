@@ -1,11 +1,11 @@
 === Send – Email Marketing Automation & newsletters for WordPress & WooCommerce ===
 Contributors: elemntor
 Plugin URI: https://send2.co/?utm_source=wp-plugins&utm_campaign=author-uri&utm_medium=wp-dash
-Tags: email marketing, marketing, newsletters, workflow automation, marketing automation
+Tags: Email marketing, newsletter, email automation, woocommerce emails, marketing
 Requires at least: 6.3
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 1.5.5
+Stable tag: 1.5.6
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -57,6 +57,7 @@ https://www.youtube.com/watch?v=ad8SSc0gZ2U
 
 ###Simple Email Marketing Pricing
 At Send, you only pay for emails actually delivered. This means:
+
 - No charges based on subscriber list size
 - No hidden fees for inactive contacts
 - No limitations on contact uploads
@@ -66,7 +67,9 @@ Your payment is based solely on email delivery volume. Upload unlimited contacts
 
 ###Perfect Integration Partners
 Send seamlessly integrates with popular WordPress form builders and page builders:
+
 📝 Form Integrations:
+
 - Elementor Forms (native integration)
 - Contact Form 7
 - WPForms
@@ -74,9 +77,11 @@ Send seamlessly integrates with popular WordPress form builders and page builder
 - Ninja Forms
 
 🛒 E-commerce Integration:
+
 - One click integration and sync with WooCommerce (complete sync of your order history, contacts and product catalog)
 
 🎯 Lead Generation:
+
 - Compatible with all major WordPress themes
 - Works with any WordPress website architecture
 - Seamless newsletter signup form embedding
@@ -130,7 +135,7 @@ You only pay for what you send.
 > Like everything in Send, we kept things simple - Pay as you go. You only pay for the credits you used either for SMS or Email, regardless of the size of your contact list uploaded to Send. Credits are valid for the month they are purchased and do not roll over to the following month. You can modify the number of credits needed on a monthly basis. In the future we will suggest upgrade options.
 
 = How can I report security bugs? =
-> You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team help validate, triage and handle any security vulnerabilities. [Report a security vulnerability](https://patchstack.com/database/wordpress/plugin/send/vdp).
+> You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team help validate, triage and handle any security vulnerabilities. [Report a security vulnerability](https://patchstack.com/database/wordpress/plugin/send-app/vdp).
 
 = Still have questions? =
 > Check out our [help center](https://send2.co/help-center/?utm_source=wp-plugins&utm_campaign=plugin-faq&utm_medium=wp-dash) or [contact us](https://send2.co/contact/?utm_source=wp-plugins&utm_campaign=plugin-faq&utm_medium=wp-dash), we're here to help you kick-start your journey with Send.
@@ -173,6 +178,9 @@ This plugin connects to an external API to facilitate marketing campaign managem
 
 
 == Changelog ==
+
+= 1.5.6 - 2025-07-30 =
+* Tweak: updated repo tags + link to patchstack
 
 = 1.5.5 - 2025-07-03 =
 * Tweak: repository assets update
