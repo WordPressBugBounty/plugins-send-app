@@ -157,6 +157,14 @@ final class API {
 			return new \WP_Error( 500, 'No Response' );
 		}
 
+		// If the token is invalid (401 Unauthorized), refresh it and try again once only.
+		if ( ! self::$refreshed && 401 === $response_code ) {
+			Connect_Service::refresh_token();
+			self::$refreshed = true;
+			$args['headers'] = self::add_bearer_token( $args['headers'] );
+			return self::request( $method, $endpoint, $args );
+		}
+
 		// Return with no content on successfull delettion of domain from service.
 		if ( 204 === $response_code ) {
 			return true;
@@ -167,14 +175,6 @@ final class API {
 
 		if ( false === $body ) {
 			return new \WP_Error( 422, 'Wrong Server Response' );
-		}
-
-		// If the token is invalid, refresh it and try again once only.
-		if ( ! self::$refreshed && ! empty( $body->message ) && is_string( $body->message ) && ( false !== strpos( $body->message, 'Invalid Token' ) ) ) {
-			Connect_Service::refresh_token();
-			self::$refreshed = true;
-			$args['headers'] = self::add_bearer_token( $args['headers'] );
-			return self::request( $method, $endpoint, $args );
 		}
 
 		if ( 200 !== $response_code && 201 !== $response_code ) {

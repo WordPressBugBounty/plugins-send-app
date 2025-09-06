@@ -1,11 +1,11 @@
-=== Send – Email Marketing Automation & newsletters for WordPress & WooCommerce ===
+=== Send – Email Marketing & Newsletters for WordPress ===
 Contributors: elemntor
 Plugin URI: https://send2.co/?utm_source=wp-plugins&utm_campaign=author-uri&utm_medium=wp-dash
 Tags: Email marketing, newsletter, email automation, woocommerce emails, marketing
 Requires at least: 6.3
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 1.5.6
+Stable tag: 1.5.8
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -178,6 +178,13 @@ This plugin connects to an external API to facilitate marketing campaign managem
 
 
 == Changelog ==
+
+= 1.5.8 - 2025-09-1 
+* New: Modified repository description
+
+= 1.5.7 - 2025-08-18 =
+* Fix: WPForms submission fixed
+* New: Added Upgrade link to plugin list view
 
 = 1.5.6 - 2025-07-30 =
 * Tweak: updated repo tags + link to patchstack

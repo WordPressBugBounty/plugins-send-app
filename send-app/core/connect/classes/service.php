@@ -232,33 +232,7 @@ class Service {
 	 * @throws Service_Exception
 	 */
 	public static function refresh_token() {
-		$prefix = \Send_App\Core\Utils::prefix_by_env( Config::APP_PREFIX );
-
-		$lock_key = $prefix . self::REFRESH_TOKEN_LOCK;
-		$last_token = Data::fetch_option( $lock_key, '' );
-
-		$current_refresh_token = Data::get_refresh_token();
-
-		if ( ! empty( $last_token ) && $last_token === $current_refresh_token ) {
-			sleep( 1 );
-			return;
-		}
-
-		delete_option( $lock_key );
-		$locked = Data::insert_option_uniquely( $lock_key, $current_refresh_token );
-		if ( ! $locked ) {
-			sleep( 1 );
-			return;
-		}
-
-		try {
-			self::get_token( Grant_Types::REFRESH_TOKEN, $current_refresh_token );
-		} catch ( Service_Exception $e ) {
-			Logger::error( $e->getMessage() );
-
-			delete_option( $lock_key );
-			Data::clear_refresh_tokens();
-		}
+		self::get_token( Grant_Types::CLIENT_CREDENTIALS );
 	}
 
 	/**

@@ -3,7 +3,7 @@
         'name' => 'elementor/send',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'cdf9e3be0cfbcf4cade1a7879e5f10ae532dde82',
+        'reference' => '4a439e963165b0f557ade87ff40eb461c45314eb',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'elementor/send' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'cdf9e3be0cfbcf4cade1a7879e5f10ae532dde82',
+            'reference' => '4a439e963165b0f557ade87ff40eb461c45314eb',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

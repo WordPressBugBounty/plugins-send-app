@@ -5,6 +5,7 @@ use Send_App\Core\Modules_Manager;
 use Send_App\Core\Integrations_Manager;
 use Send_App\Core\Rest\Rest_Manager;
 use Send_App\Core\Connect\Manager as Connect_Manager;
+	use Send_App\Core\Classes\Upgrade_Link;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -21,6 +22,8 @@ class Plugin {
 	protected Rest_Manager $rest_manager;
 
 	protected Connect_Manager $connect_manager;
+
+	protected Upgrade_Link $upgrade_link;
 
 	public function __clone() {
 		_doing_it_wrong(
@@ -79,6 +82,7 @@ class Plugin {
 		$this->integrations_manager = Integrations_Manager::get_instance();
 		$this->rest_manager = Rest_Manager::get_instance();
 		$this->connect_manager = new Connect_Manager();
+		$this->upgrade_link = new Upgrade_Link();
 	}
 
 	private function core_components_init(): void {
@@ -86,6 +90,7 @@ class Plugin {
 		$this->integrations_manager->init();
 		$this->rest_manager->init();
 		$this->connect_manager->init();
+		$this->upgrade_link->init();
 
 		/**
 		 * Fires after the plugin core components have been initialized.
