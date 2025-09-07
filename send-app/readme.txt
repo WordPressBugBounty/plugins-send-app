@@ -5,7 +5,7 @@ Tags: Email marketing, newsletter, email automation, woocommerce emails, marketi
 Requires at least: 6.3
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 1.5.8
+Stable tag: 1.6.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -179,7 +179,11 @@ This plugin connects to an external API to facilitate marketing campaign managem
 
 == Changelog ==
 
-= 1.5.8 - 2025-09-1 
+= 1.6.0 - 2025-09-07 
+* New: Deactivation Feedback Popup
+* Fix: Ninja forms submission sometimes not sending
+
+= 1.5.8 - 2025-09-01 
 * New: Modified repository description
 
 = 1.5.7 - 2025-08-18 =
