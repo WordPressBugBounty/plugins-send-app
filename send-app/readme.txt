@@ -5,7 +5,7 @@ Tags: Email marketing, newsletter, email automation, woocommerce emails, marketi
 Requires at least: 6.3
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 1.6.1
+Stable tag: 1.6.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -135,7 +135,7 @@ You only pay for what you send.
 > Like everything in Send, we kept things simple - Pay as you go. You only pay for the credits you used either for SMS or Email, regardless of the size of your contact list uploaded to Send. Credits are valid for the month they are purchased and do not roll over to the following month. You can modify the number of credits needed on a monthly basis. In the future we will suggest upgrade options.
 
 = How can I report security bugs? =
-> You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team help validate, triage and handle any security vulnerabilities. [Report a security vulnerability](https://patchstack.com/database/wordpress/plugin/send-app/vdp).
+> You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team help validate, triage and handle any security vulnerabilities. [Report a security vulnerability](https://patchstack.com/database/wordpress/plugin/send-app/vdp)[.](https://patchstack.com/database/vdp/419a7d58-2d20-4640-aa70-a8b07ab6b630)
 
 = Still have questions? =
 > Check out our [help center](https://send2.co/help-center/?utm_source=wp-plugins&utm_campaign=plugin-faq&utm_medium=wp-dash) or [contact us](https://send2.co/contact/?utm_source=wp-plugins&utm_campaign=plugin-faq&utm_medium=wp-dash), we're here to help you kick-start your journey with Send.
@@ -178,6 +178,9 @@ This plugin connects to an external API to facilitate marketing campaign managem
 
 
 == Changelog ==
+
+= 1.6.2 - 2025-09-21 
+* Tweak: update repository readme
 
 = 1.6.1 - 2025-09-16 
 * Fix: Design of deactivation feedback form
